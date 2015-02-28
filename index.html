@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Loser Board</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <script>
+      var myFirebaseRef = new Firebase("https://loserboard.firebaseio.com/");
+      myFirebaseRef.set({
+          title: "testing",
+          author: "me"
+      });
+      myFirebaseRef.child("title").on("value", function (title) {
+        console.log(title.val());
+      });
+      // Create a callback which logs the current auth state
+      function authDataCallback(authData) {
+        if (authData) {
+          console.log("User " + authData.uid + " is logged in with " +
+              authData.provider);
+        } else {
+          console.log("User is logged out");
+        }
+      }
+
+      // Register the callback to be fired every time auth state changes
+      var ref = new Firebase("https://loserboard.firebaseio.com");
+      ref.onAuth(authDataCallback);
+      // Create a callback to handle the result of the authentication
+      function authHandler(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+        }
+      }
+
+
+      $(function () {
+        $('form').on('submit', function (event) {
+          event.preventDefault();
+          var $form = $(event.currentTarget);
+          
+          // Or with an email/password combination
+          ref.authWithPassword({
+            email    : $form.find('.email').val(),
+            password : $form.find('.password').val()
+          }, authHandler);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <form action="" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <label>Email<br>
+        <input name="email" type="text" class="email form-control"><br>
+      </label>
+      <label>Password<br>
+        <input name="password" type="password" class="password form-control"><br>
+      </label>
+      <input type="submit" value="Submit"><br>
+    </form>
+  </body>
+</html>
