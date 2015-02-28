@@ -11,9 +11,10 @@ var Loserboard = React.createClass({
   mixins: [ReactFireMixin],
   render: function () {
     var losers = this.state.losers.map(function(loser, i) {
+      console.log(loser);
       return (
-        <div key={loser}>
-          {loser}
+        <div key={loser.name}>
+          {loser.name}
         </div>
       );
     }.bind(this));
