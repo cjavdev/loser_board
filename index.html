@@ -2,17 +2,44 @@
 <html>
   <head>
     <title>Loser Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css"></link>
+    <style>
+      .title {
+        font-size: 40px;
+        font-weight: bold;
+      }
+      .add-weight-input {
+        height: 2em;
+        font-size: 2em;
+        width: 90px;
+        margin-right: 20px;
+      }
+      #weightsChart {
+        max-height: 500px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div id="loserboard"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="loserboard" class="col-md-4">
+        </div>
+        <div class="col-md-8">
+          <canvas id="weightsChart"></canvas>
+        </div>
+      </div>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
     <!-- React -->
     <script src="https://fb.me/react-0.12.0.js"></script>
     <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
 
     <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/reactfire/0.4.0/reactfire.js"></script>
+    <script type="text/jsx" src="/Chart.js"></script>
     <script type="text/jsx" src="/src/loserboard.js"></script>
     <script type="text/jsx">
       $(function () {
@@ -21,7 +48,7 @@
           React.createElement(Loserboard, null),
           document.getElementById('loserboard')
         );
-      })
+      });
     </script>
   </body>
 </html>
